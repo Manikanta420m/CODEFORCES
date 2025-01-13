@@ -42,7 +42,7 @@ void solve(){
     mp[p]++;
  }
  string s(m,'0');
- if(k==m){
+ if(k==n){
     for(ll i=0;i<m;i++)s[i]='1';
  }
  else if(k==n-1){ll reso=0;
