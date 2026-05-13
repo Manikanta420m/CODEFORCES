@@ -7,7 +7,6 @@ This repository contains my solutions to various Codeforces problems solved duri
 
 The main objective of this repository is to:<br>
 <br>
-
 • Improve competitive programming skills<br>
 • Strengthen Data Structures & Algorithms<br>
 • Learn optimization techniques<br>
