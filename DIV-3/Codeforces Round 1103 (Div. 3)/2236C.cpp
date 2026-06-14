@@ -164,35 +164,31 @@ void dfs(ll u){
   for(auto i:adj[u]){
     dfs(i);
   }
-} 
+}
 
 //-------------------LUUVE-----------------------------/// 
 void MANI(){ 
-    ll n,m,sum=0,maxi=0;cin>>n;
-    vector<ll>a(n),b(n),v(n-1),ansi(n,0),ans(n);
-    for(auto &i:a){cin>>i;maxi=max(maxi,i);}
-    ll maxIdx=(ll)(max_element(a.begin(),a.end())-a.begin());
-    for(ll i=0;i<n;i++)b[i]=(maxIdx+1+i)%n;
-    for(ll i=0;i<n-1;i++){
-        v[i]=a[(maxIdx+1+i)%n];
+    ll a,b,x;cin>>a>>b>>x;
+    if(a<b)swap(a,b);
+    vector<ll>va,vb;
+    ll ca=a,cb=b;
+    while(true){
+        va.push_back(ca);
+        if(ca==0)break;
+        ca/=x;
     }
-    for(ll i=0;i<n;i++){
-        ll sm=0,ele=0;
-        for(ll j=i-1;j>=0;j--){
-           ele=max(ele,v[j]);
-           sm+=ele;
+    while(true){
+        vb.push_back(cb);
+        if(cb==0)break;
+        cb/=x;
+    }
+    ll ans=(1LL<<62);
+    for(ll i=0;i<va.size();i++){
+        for(ll j=0;j<vb.size();j++){
+            ans=min(ans,(i+j+abs(va[i]-vb[j])));
         }
-        ele=0;
-        for(ll j=i;j<n-1;j++){
-           ele=max(ele,v[j]);
-           sm+=ele;
-        }
-        ansi[i]=sm;
     }
-    for(ll i=0;i<n;i++){
-        ans[b[i]]=ansi[i];
-    }
-    for(auto i:ans)cout<<i<<" ";
+    cout<<ans;
 }
 
 //------------------Main-----------------------------///

@@ -164,35 +164,52 @@ void dfs(ll u){
   for(auto i:adj[u]){
     dfs(i);
   }
-} 
+}
 
 //-------------------LUUVE-----------------------------/// 
 void MANI(){ 
-    ll n,m,sum=0,maxi=0;cin>>n;
-    vector<ll>a(n),b(n),v(n-1),ansi(n,0),ans(n);
-    for(auto &i:a){cin>>i;maxi=max(maxi,i);}
-    ll maxIdx=(ll)(max_element(a.begin(),a.end())-a.begin());
-    for(ll i=0;i<n;i++)b[i]=(maxIdx+1+i)%n;
-    for(ll i=0;i<n-1;i++){
-        v[i]=a[(maxIdx+1+i)%n];
-    }
-    for(ll i=0;i<n;i++){
-        ll sm=0,ele=0;
-        for(ll j=i-1;j>=0;j--){
-           ele=max(ele,v[j]);
-           sm+=ele;
+    ll n,m,k,ans=0,sum=0;cin>>n>>k;
+    string s;cin>>s;
+    vector<ll>res;
+    ll best=INT_MAX;
+    for(ll i=0;i<=k;i++){
+        ll x=i;
+        ll y=k-i;
+        string a;
+        vector<ll>cur(n);
+        for(ll j=n-1;j>=0;j--){
+            if(s[j]==')' and y){
+                cur[j]=1;
+                y--;
+            }
         }
-        ele=0;
-        for(ll j=i;j<n-1;j++){
-           ele=max(ele,v[j]);
-           sm+=ele;
+        for(ll j=0;j<n;j++){
+            if(s[j]=='(' and x){
+                cur[j]=1;
+                x--;
+            }
         }
-        ansi[i]=sm;
+        for(ll j=0;j<n;j++){
+            if(cur[j]==0){
+                a+=s[j];
+            }
+        }
+        ll curAns=0,bal=0;
+        for(auto j:a){
+           if(j=='(')bal+=1;
+           else{
+            if(bal>0){
+                bal--;
+                curAns+=1;
+            }
+           }
+        }
+        if(curAns<best){
+            best=curAns;
+            res=cur;
+        }
     }
-    for(ll i=0;i<n;i++){
-        ans[b[i]]=ansi[i];
-    }
-    for(auto i:ans)cout<<i<<" ";
+    for(auto i:res)cout<<i;
 }
 
 //------------------Main-----------------------------///

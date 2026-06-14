@@ -164,35 +164,16 @@ void dfs(ll u){
   for(auto i:adj[u]){
     dfs(i);
   }
-} 
+}
 
 //-------------------LUUVE-----------------------------/// 
 void MANI(){ 
-    ll n,m,sum=0,maxi=0;cin>>n;
-    vector<ll>a(n),b(n),v(n-1),ansi(n,0),ans(n);
-    for(auto &i:a){cin>>i;maxi=max(maxi,i);}
-    ll maxIdx=(ll)(max_element(a.begin(),a.end())-a.begin());
-    for(ll i=0;i<n;i++)b[i]=(maxIdx+1+i)%n;
-    for(ll i=0;i<n-1;i++){
-        v[i]=a[(maxIdx+1+i)%n];
-    }
-    for(ll i=0;i<n;i++){
-        ll sm=0,ele=0;
-        for(ll j=i-1;j>=0;j--){
-           ele=max(ele,v[j]);
-           sm+=ele;
-        }
-        ele=0;
-        for(ll j=i;j<n-1;j++){
-           ele=max(ele,v[j]);
-           sm+=ele;
-        }
-        ansi[i]=sm;
-    }
-    for(ll i=0;i<n;i++){
-        ans[b[i]]=ansi[i];
-    }
-    for(auto i:ans)cout<<i<<" ";
+    ll n,m,k,ans=0,sum=0;cin>>n;
+    vector<ll>a(n),b(n),v;
+    ll mini=LLONG_MAX,maxi=LLONG_MIN;
+    for(auto &i:a){cin>>i;maxi=max(maxi,i);mini=min(mini,i);}
+    cout<<(maxi-mini+1);
+    // your code here
 }
 
 //------------------Main-----------------------------///

@@ -164,35 +164,30 @@ void dfs(ll u){
   for(auto i:adj[u]){
     dfs(i);
   }
-} 
+}
 
 //-------------------LUUVE-----------------------------/// 
 void MANI(){ 
-    ll n,m,sum=0,maxi=0;cin>>n;
-    vector<ll>a(n),b(n),v(n-1),ansi(n,0),ans(n);
-    for(auto &i:a){cin>>i;maxi=max(maxi,i);}
-    ll maxIdx=(ll)(max_element(a.begin(),a.end())-a.begin());
-    for(ll i=0;i<n;i++)b[i]=(maxIdx+1+i)%n;
-    for(ll i=0;i<n-1;i++){
-        v[i]=a[(maxIdx+1+i)%n];
-    }
+    ll n,m,k,ans=0,sum=0;cin>>n>>k;
+    bool f=false;
+    vector<ll>a(n+1,0);
+    vector<char>pos(n+1,0),neg(n+1,0);
     for(ll i=0;i<n;i++){
-        ll sm=0,ele=0;
-        for(ll j=i-1;j>=0;j--){
-           ele=max(ele,v[j]);
-           sm+=ele;
-        }
-        ele=0;
-        for(ll j=i;j<n-1;j++){
-           ele=max(ele,v[j]);
-           sm+=ele;
-        }
-        ansi[i]=sm;
+        ll x;cin>>x;
+        a[x]++;
     }
-    for(ll i=0;i<n;i++){
-        ans[b[i]]=ansi[i];
+    ll req=0;
+    for(ll i=n;i>=1;i--){
+        if(a[i]>0){
+            pos[i]=(req>0)||(a[i]%2==0);
+            if(!pos[i])f=true;
+            neg[i]=!pos[i];
+        }
+            req+=neg[i];
+            if(i+k<=n)req-=neg[i+k];
     }
-    for(auto i:ans)cout<<i<<" ";
+    if(f)cout<<"YES";
+    else cout<<"NO";
 }
 
 //------------------Main-----------------------------///
