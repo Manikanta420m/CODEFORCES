@@ -170,8 +170,16 @@ void dfs(ll u){
 void MANI(){ 
     string s;cin>>s;
     ll n=s.size();
-    ll ans=0;
-    
+    ll ans=0,sm=0,ls=0;
+    vector<ll>dp(3,-1);
+    dp[0]=0;
+    for(ll i=0;i<n;i++){
+        sm+=s[i]-'0';
+        sm%=3;
+        ls=max(ls,dp[sm]+1);
+        dp[sm]=max(dp[sm],ls);
+    }
+    cout<<ls;
 }
 
 //------------------Main-----------------------------///
@@ -179,7 +187,6 @@ int main(){
   ios::sync_with_stdio(false);
     cin.tie(nullptr);
     ll tt=1;
-   // cin>>tt;
     while(tt--){
         MANI();
         cout<<endl;
