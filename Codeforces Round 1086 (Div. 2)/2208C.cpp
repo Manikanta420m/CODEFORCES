@@ -24,7 +24,6 @@ void MANI(){
     cout<<dp[0];
 }
 
-//------------------Main-----------------------------///
 
 int main(){
   ios::sync_with_stdio(false);
@@ -32,6 +31,7 @@ int main(){
     ll tt=1;
     cin>>tt;
     while(tt--){
+      ll x;
         MANI();
         cout<<endl;
      } 
