@@ -166,52 +166,42 @@ void dfs(ll u){
   }
 }
 
-int maxSubarrayLength(vector<int>nums, long long k) {
-    int n = nums.size();
-    int left = 0;
-    long long current_sum = 0; // Use long long to prevent overflow WA
-    int max_len = -1;
-    
-    // Deque stores INDICES to keep track of the maximum element's position
-    deque<int> max_dq;
-    
-    for (int right = 0; right < n; ++right) {
-        current_sum += nums[right];
-        
-        // Maintain monotonic decreasing order in the deque
-        while (!max_dq.empty() && nums[max_dq.back()] <= nums[right]) {
-            max_dq.pop_back();
-        }
-        max_dq.push_back(right);
-        
-        // If the condition is violated, shrink the window from the left
-        while (!max_dq.empty() && (current_sum - nums[max_dq.front()] > k) && left <= right) {
-            current_sum -= nums[left];
-            
-            // If the element falling out of the window is our current max, remove it
-            if (max_dq.front() == left) {
-                max_dq.pop_front();
-            }
-            left++;
-        }
-        
-        // Check if the current valid window perfectly matches k
-        if (!max_dq.empty() && current_sum - nums[max_dq.front()] == k) {
-            max_len = max(max_len, right - left + 1);
-        }
-    }
-    
-    return max_len;
-}
-
 //-------------------LUUVE-----------------------------/// 
 void MANI(){ 
-    int n,m,k,ans=0,sum=0;cin>>n>>k;
-    vector<int>a(n),b(n),v;
+    ll n,m,k,ans=0,sum=0;cin>>n;
+    vector<ll>a(n),b(n);
+    unordered_map<ll,ll>mp;
     for(auto &i:a)cin>>i;
-    cout<<maxSubarrayLength(a,k)<<endl;
+    for(auto i:a){
+        if(i<=n+1)mp[i]++;
+    }
+    if(mp[0]==0){
+        cout<<"YES"<<endl;
+        string res="";
+        for(ll i=0;i<n;i++)res.push_back('A');
+        cout<<res;
+        return;
+    }
+    if(mp[0]==1){
+        cout<<"NO";
+        return;
+    }
+    ll req=1;
+    while(req<=n+1 and mp[req]>=2)req++;
+    vector<ll>v(req,0);
+    string res="";res.reserve(n);
+    for(ll i=0;i<n;i++){
+       if(a[i]>=req)res+='C';
+       else{
+        if(v[a[i]]==0)res+='A';
+        else if(v[a[i]]==1)res+='B';
+        else res+='A';
+        v[a[i]]++;
+       }
+    }
+    cout<<"YES"<<endl;
+    cout<<res;
 }
-
 
 //------------------Main-----------------------------///
 int main(){
