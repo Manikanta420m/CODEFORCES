@@ -28,7 +28,7 @@ const int M=1e9+7;
 const int INF = int(1e9) + 99;
 const int MAXI = 20001;
 const int MAXN = 1e5 + 4;
-const int M1 = 998244353;
+const int N = 300010;
 
 //-----------------------MOD OPERATIONS---------------------///
 
@@ -165,45 +165,21 @@ void dfs(ll u){
     dfs(i);
   }
 }
-
+vector<int> Div[N];
 //-------------------LUUVE-----------------------------/// 
-
 void MANI(){ 
-    ll n,m,k,ans=0,sum=0;cin>>n;
-    vector<ll> a(n), diff(n + 1, 0);
-
-    for (auto &i : a) {
-        cin >> i;
+    ll n,m,k,ans=0,sum=0;cin>>n>>k;
+    vector<ll>a(n),b(n),v;
+    for(auto &i:a)cin>>i;
+    // for(auto i:a){
+    //     if(i==k)ans+=i;
+    // }
+    for(auto i:Div[k]){
+       ll res=0;
+       for(auto j:a)res+=(j%i==0?j:0);
+       ans=max(ans,res);
     }
-
-    for (ll i = 0; i < n; i++) {
-        if (a[i] > 0) {
-            diff[max(0LL, i - a[i] + 1)]++;
-            diff[min(n, i + a[i])]--;
-        }
-    }
-
-    vector<bool> res(n, false);
-    for (ll i = 0; i < n; i++) {
-        sum += diff[i];
-        res[i] = (sum > 0);
-    }
-    for (ll i = 0; i < n; i++) {
-        if (a[i] >= 0) {
-            if (i - a[i] >= 0 && !res[i - a[i]])
-                continue;
-
-            if (i + a[i] < n && !res[i + a[i]])
-                continue;
-
-            cout << -1 << '\n';
-            return;
-        }
-    }
-    for (auto x : res) {
-        cout << !x;
-    }
-    cout << '\n';
+    cout<<ans;
 }
 
 //------------------Main-----------------------------///
@@ -212,13 +188,13 @@ int main(){
     cin.tie(nullptr);
     ll tt=1;
     cin>>tt;
+    for (int i = 2; i < N; i++){
+        for (int j = i; j < N; j += i) Div[j].push_back(i);
+    }
     while(tt--){
         MANI();
-      //  cout<<endl;
+        cout<<endl;
      } 
   }
 //-----------------TIPS------------------------///
 // in case of map TLE use---> gp_hash_table<ll,ll> mp;
-
-
-

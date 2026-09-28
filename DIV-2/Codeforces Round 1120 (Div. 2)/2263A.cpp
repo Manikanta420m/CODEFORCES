@@ -167,43 +167,13 @@ void dfs(ll u){
 }
 
 //-------------------LUUVE-----------------------------/// 
-
 void MANI(){ 
     ll n,m,k,ans=0,sum=0;cin>>n;
-    vector<ll> a(n), diff(n + 1, 0);
-
-    for (auto &i : a) {
-        cin >> i;
-    }
-
-    for (ll i = 0; i < n; i++) {
-        if (a[i] > 0) {
-            diff[max(0LL, i - a[i] + 1)]++;
-            diff[min(n, i + a[i])]--;
-        }
-    }
-
-    vector<bool> res(n, false);
-    for (ll i = 0; i < n; i++) {
-        sum += diff[i];
-        res[i] = (sum > 0);
-    }
-    for (ll i = 0; i < n; i++) {
-        if (a[i] >= 0) {
-            if (i - a[i] >= 0 && !res[i - a[i]])
-                continue;
-
-            if (i + a[i] < n && !res[i + a[i]])
-                continue;
-
-            cout << -1 << '\n';
-            return;
-        }
-    }
-    for (auto x : res) {
-        cout << !x;
-    }
-    cout << '\n';
+    vector<ll>a(n),b(n),v;
+    for(auto &i:a)cin>>i;
+    ll one=count(a.begin(),a.end(),1);
+    ll zero=count(a.begin(),a.end(),0);
+    cout<<(one>=zero?"Bessie":"Elsie");
 }
 
 //------------------Main-----------------------------///
@@ -214,11 +184,8 @@ int main(){
     cin>>tt;
     while(tt--){
         MANI();
-      //  cout<<endl;
+        cout<<endl;
      } 
   }
 //-----------------TIPS------------------------///
 // in case of map TLE use---> gp_hash_table<ll,ll> mp;
-
-
-
